@@ -14,5 +14,11 @@ class TodoSerializer(BaseModel):
 class TodoCreateSerializer(BaseModel):
     title: str
 
+class TodoAtributeSerializer(BaseModel):
+    description: str
+    status: str 
+    due_date: int
+    responsible: str
+    
 class TodoUpdateSerializer(TodoCreateSerializer):
     pass
