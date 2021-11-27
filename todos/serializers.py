@@ -1,11 +1,12 @@
 from .enums import Status
 from pydantic import BaseModel
 from datetime import datetime
-
+from typing import List, Optional
 
 
 class TodoSerializer(BaseModel):
     id: str
+    title: str
 
     class Config:
         orm_mode = True
@@ -13,12 +14,11 @@ class TodoSerializer(BaseModel):
 
 class TodoCreateSerializer(BaseModel):
     title: str
-
-class TodoAtributeSerializer(BaseModel):
     description: str
-    status: str 
-    due_date: int
+    status: Status
+    due_date: datetime
     responsible: str
+
     
 class TodoUpdateSerializer(TodoCreateSerializer):
     pass
