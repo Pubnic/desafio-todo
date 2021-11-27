@@ -22,8 +22,7 @@ GET todos/{id}/
 def get_todos_id(todo_id:str):
     todo = banco_dados.get_todo(todo_id)
     if todo is None:
-        return ErrorSerializer
-
+        return {"Error": "Todo not found"}
     return{"message": f"{todo}"}
 '''
 POST todos
