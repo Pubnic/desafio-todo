@@ -1,7 +1,6 @@
 from .enums import Status
 from pydantic import BaseModel
 from datetime import datetime
-from typing import List, Optional
 
 
 class TodoSerializer(BaseModel):
@@ -19,6 +18,6 @@ class TodoCreateSerializer(BaseModel):
     due_date: datetime
     responsible: str
 
-    
+
 class TodoUpdateSerializer(TodoCreateSerializer):
     pass
