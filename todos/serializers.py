@@ -3,7 +3,6 @@ from pydantic import BaseModel
 from datetime import datetime
 
 
-
 class TodoSerializer(BaseModel):
     title: str
     description: str
@@ -21,6 +20,7 @@ class TodoCreateSerializer(BaseModel):
     status: Status
     due_date: datetime
     responsible: str
+
 
 class TodoUpdateSerializer(TodoCreateSerializer):
     pass
