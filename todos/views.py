@@ -1,9 +1,10 @@
 from common.serializers import ErrorSerializer
 from starlette.responses import JSONResponse
+from todos.db.models import TodoModel
 from todos.db.services import TodosDBService
-from fastapi import APIRouter, status, HTTPException
-from .serializers import TodoCreateSerializer, TodoSerializer, TodoUpdateSerializer
-
+from fastapi import APIRouter, status
+from .serializers import TodoCreateSerializer, TodoUpdateSerializer
+from .serializers import TodoSerializer
 
 todo_router = APIRouter()
 banco_dados = TodosDBService()
@@ -16,8 +17,8 @@ GET todos/
 @todo_router.get("/")
 def get_todos():
 
-    todos = banco_dados.get_todos()
-    return todos
+        todos = banco_dados.get_todos()
+        return todos
 
 
 ''''
@@ -32,8 +33,11 @@ def get_todos_id(todo_id: str):
         todo = banco_dados.get_todo(todo_id)
 
         return todo
-    except Exception:
-        return JSONResponse
+    except TodoModel.DoesNotExist:
+        return JSONResponse(
+            status_code=404,
+            content= dict(error='Todo not found.')
+        )
 
 
 '''
@@ -54,7 +58,15 @@ PUT todos
 @todo_router.put("/{todo_id}/")
 def update_todo(todo_id: str, todo: TodoUpdateSerializer):
 
-    return banco_dados.update_todo(todo_id, todo)
+    try:
+        return banco_dados.update_todo(todo_id, todo)
+
+        return todo
+    except TodoModel.DoesNotExist:
+        return JSONResponse(
+            status_code=404,
+            content=dict(error='Todo not found.')
+        )
 
 
 ''''
@@ -64,7 +76,12 @@ DELETE todos/{id}/
 
 @todo_router.delete("/{todo_id}/", status_code=status.HTTP_204_NO_CONTENT)
 def delete_todo(todo_id: str):
-    deleted = banco_dados.delete_todo(todo_id)
-    if not deleted:
-        return {"Error": "Todo not found"}
-    return {"Message": "Todo deleted"}
+
+    try:
+        banco_dados.delete_todo(todo_id)
+
+    except TodoModel.DoesNotExist:
+        return JSONResponse(
+            status_code=404,
+            content=dict(error='Todo not found.')
+        )

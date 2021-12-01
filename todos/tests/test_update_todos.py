@@ -57,7 +57,7 @@ class TestUpdateTodos:
             due_date='2022-07-15 00:00',
             responsible='João2'
         )
-        response = client.put(f'{self.url}/{self.todo.id}1/', sjson=payload,
+        response = client.put(f'{self.url}/{self.todo.id}1/', json=payload,
                               allow_redirects=True)
         print(response.__dict__)
         response_json = response.json()
@@ -71,7 +71,7 @@ class TestUpdateTodos:
         todo = todos[0]
         assert todo.id == self.todo.id
         assert todo.title == 'Todo1'
-        assert todo.descripStion == 'Descrição'
+        assert todo.description == 'Descrição'
         assert todo.status == 'DOING'
         assert todo.due_date.isoformat() == '2021-07-15T00:00:00+00:00'
         assert todo.responsible == 'João'
