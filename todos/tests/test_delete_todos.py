@@ -36,4 +36,3 @@ class TestDeleteTodos:
 
         todos = self.db_service.get_todos()
         assert len(todos) == 1
-        
