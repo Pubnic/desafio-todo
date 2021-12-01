@@ -1,4 +1,3 @@
-from common.serializers import ErrorSerializer
 from starlette.responses import JSONResponse
 from todos.db.models import TodoModel
 from todos.db.services import TodosDBService
@@ -16,9 +15,8 @@ GET todos/
 
 @todo_router.get("/")
 def get_todos():
-
-        todos = banco_dados.get_todos()
-        return todos
+    todos = banco_dados.get_todos()
+    return todos
 
 
 ''''
@@ -36,7 +34,7 @@ def get_todos_id(todo_id: str):
     except TodoModel.DoesNotExist:
         return JSONResponse(
             status_code=404,
-            content= dict(error='Todo not found.')
+            content=dict(error='Todo not found.')
         )
 
 
