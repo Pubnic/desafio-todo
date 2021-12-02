@@ -59,7 +59,6 @@ def update_todo(todo_id: str, todo: TodoUpdateSerializer):
     try:
         return banco_dados.update_todo(todo_id, todo)
 
-        return todo
     except TodoModel.DoesNotExist:
         return JSONResponse(
             status_code=404,
