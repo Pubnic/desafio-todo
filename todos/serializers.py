@@ -3,7 +3,6 @@ from pydantic import BaseModel
 from datetime import datetime
 
 
-
 class TodoSerializer(BaseModel):
     id: str
     title: str

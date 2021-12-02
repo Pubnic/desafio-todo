@@ -17,7 +17,8 @@ class TestGetTodo:
         ))
 
     def test_get_todo(self, client: TestClient):
-        response = client.get(f'{self.url}/{self.todo.id}/', allow_redirects=True)
+        response = client.get(
+            f'{self.url}/{self.todo.id}/', allow_redirects=True)
         response_json = response.json()
         print('response_json: ', response_json)
         assert response_json['id'] == self.todo.id
@@ -28,9 +29,11 @@ class TestGetTodo:
         assert response_json['responsible'] == 'João'
         assert response.status_code == 200
 
-    def test_get_todo_not_found(self, client: TestClient):
-        response = client.get(f'{self.url}/{self.todo.id}1/', allow_redirects=True)
+    def test_get_todo_not_found(
+            self, client: TestClient):
+        response = client.get(
+            f'{self.url}/{self.todo.id}1/', allow_redirects=True)
         response_json = response.json()
         print('response_json: ', response_json)
-        assert response_json['detail'] == 'Todo not found.'
+        assert response_json['error'] == 'Todo not found.'
         assert response.status_code == 404
