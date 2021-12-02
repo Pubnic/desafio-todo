@@ -4,6 +4,7 @@ from datetime import datetime
 
 
 class TodoSerializer(BaseModel):
+    id: str
     title: str
     description: str
     status: Status
