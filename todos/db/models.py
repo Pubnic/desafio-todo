@@ -14,8 +14,6 @@ class TodoModel(BaseModel):
     class Meta:
         table_name = DBService.table_name('todo')
         host = DBService.host()
-        aws_access_key_id = "anything"
-        aws_secret_access_key = "fake"
 
     @property
     def serialized(self):
