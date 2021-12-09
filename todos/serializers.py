@@ -5,7 +5,6 @@ from datetime import datetime
 
 class TodoCreateSerializer(BaseModel):
     title: str
-    title: str
     description: str
     status: Status
     due_date: datetime
