@@ -36,10 +36,23 @@ def get_todo(id: str):
     except TodoModel.DoesNotExist:
         return JSONResponse(status_code=404, content=dict(
                                 error='Todo not found.'))
+
 '''
 POST todos
 '''
 
+
+@todo_router.put('/{id}/')
+def update_todo(id: str, todo: TodoUpdateSerializer):
+    try:
+        update = database.update_todo(id, todo)
+        return update
+    except TodoModel.DoesNotExist:
+        return JSONResponse(status_code=404, content=dict(
+                            error='Todo not found.')
+                            )
+
+                            
 '''
 PUT todos
 '''
