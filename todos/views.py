@@ -1,7 +1,9 @@
 from common.serializers import ErrorSerializer
 from todos.db.services import TodosDBService
+from todos.db.models import TodoModel
 from fastapi import APIRouter
 from .serializers import TodoCreateSerializer, TodoUpdateSerializer
+from fastapi.responses import JSONResponse
 
 todo_router = APIRouter()
 database = TodosDBService()
@@ -26,7 +28,14 @@ def get_todos(): #DEFINIÇÃO DA FUNÇÃO PEGAR_TODOS
 ''''
 GET todos/{id}/
 '''
-
+@todo_router.get('/{id}/')
+def get_todo(id: str):
+    try:
+        todo = database.get_todo(id)
+        return todo
+    except TodoModel.DoesNotExist:
+        return JSONResponse(status_code=404, content=dict(
+                                error='Todo not found.'))
 '''
 POST todos
 '''
