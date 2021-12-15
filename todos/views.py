@@ -42,6 +42,17 @@ POST todos
 '''
 
 
+@todo_router.post('/', status_code=201)
+def create_todo(todo: TodoCreateSerializer):
+    return database.create_todo(todo)
+
+
+                            
+'''
+PUT todos
+'''
+
+
 @todo_router.put('/{id}/')
 def update_todo(id: str, todo: TodoUpdateSerializer):
     try:
@@ -52,11 +63,17 @@ def update_todo(id: str, todo: TodoUpdateSerializer):
                             error='Todo not found.')
                             )
 
-                            
-'''
-PUT todos
-'''
-
 ''''
 DELETE todos/{id}/
 '''
+
+
+@todo_router.delete('/{id}/', status_code=204)
+def delete_todo(id: str):
+    try:
+        delete = database.delete_todo(id)
+        return delete
+    except TodoModel.DoesNotExist:
+        return JSONResponse(status_code=404, content=dict(
+                                error='Todo not found.')
+                            )
