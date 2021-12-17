@@ -62,7 +62,7 @@ class TestUpdateTodos:
         print(response.__dict__)
         response_json = response.json()
         print('response_json: ', response_json)
-        assert response_json['detail'] == 'Todo not found.'
+        assert response_json['error'] == 'Todo not found.'
         assert response.status_code == 404
 
         todos = self.db_service.get_todos()

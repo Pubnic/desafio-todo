@@ -34,5 +34,5 @@ class TestGetTodo:
                               allow_redirects=True)
         response_json = response.json()
         print('response_json: ', response_json)
-        assert response_json['detail'] == 'Todo not found.'
+        assert response_json['error'] == 'Todo not found.'
         assert response.status_code == 404
